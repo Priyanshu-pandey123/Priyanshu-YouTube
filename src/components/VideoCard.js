@@ -5,7 +5,6 @@ import Shimmer from './Shimmer';
 
 const VideoCard = ({info}) => {
 
-    console.log(info,"form VideoCar");
     const{snippet,statistics}=info;
     const {channelTitle,title,thumbnails}=snippet;
 
@@ -28,6 +27,17 @@ const VideoCard = ({info}) => {
       </ul>
     </div>
   );
+}
+
+
+
+export const AdVideoCard=({info})=>{
+  return(
+    <div className='border-b-10'>
+      
+      <VideoCard info={info}/>
+    </div>
+  )
 }
 
 export default VideoCard
