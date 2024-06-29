@@ -6,3 +6,6 @@ export const YOUTUBE_API="https://youtube.googleapis.com/youtube/v3/videos?part=
                      
 
 export const SEARCH_API="http://suggestqueries.google.com/complete/search?client=firefox&ds=yt&q=";
+
+
+export const COUNT=20;

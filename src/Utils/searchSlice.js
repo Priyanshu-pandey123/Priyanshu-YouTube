@@ -8,7 +8,10 @@ const searchSlice=createSlice({
     },
     reducers:{
         cacheResult:(state,action)=>{
-            state={...action.payload,...state}
+             state=Object.assign(state,action.payload)
+            state={...state,...action.payload};
+           
+              
         },
     },
 });

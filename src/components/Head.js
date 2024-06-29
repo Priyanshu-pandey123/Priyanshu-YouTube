@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { toggleMenu } from '../Utils/appSlice';
 import { SEARCH_API } from '../Utils/constant';
+import { json } from 'react-router-dom';
+import { cacheResult } from '../Utils/searchSlice';
 
 const Head = () => {
   const [search,setSearch]=useState("");
@@ -10,6 +12,7 @@ const Head = () => {
   const [suggestion,setSuggestion]=useState([]);
   console.log(search)
   const dispatch=useDispatch();
+  const cacheSearch=useSelector((store)=>store.search);
   const handleToggleMenu =()=>{
       
        dispatch(toggleMenu());
@@ -19,7 +22,15 @@ const Head = () => {
     useEffect(()=>{
       
 
-    const timer = setTimeout(()=>searchSuggestion(),200);
+    const timer = setTimeout(()=>{
+
+      if(cacheSearch[search]){
+        setSuggestion(cacheSearch[search]);
+      }else{
+         searchSuggestion()
+      }
+      
+    },200);
     return()=>{
       clearInterval(timer);
     }
@@ -34,6 +45,10 @@ const Head = () => {
         const json =await searchData.json();
         console.log(json);
         setSuggestion(json[1]);
+        dispatch(cacheResult({
+          [search]:json[1],
+        })
+      ); 
 
 
       }
